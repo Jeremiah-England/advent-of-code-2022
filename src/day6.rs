@@ -12,9 +12,10 @@ fn find_uniq_index(string: &String) -> usize {
     let mut previous_four: VecDeque<char> = VecDeque::new();
     for (i, character) in string.chars().enumerate() {
         previous_four.push_back(character);
-        if previous_four.len() == 4 {
-            // (Part 1)
-            // if previous_four.len() == 14 {  // (Part 2)
+        // (Part 1)
+        // if previous_four.len() == 4 {
+        // (Part 2)
+        if previous_four.len() == 14 {
             if !has_duplicates(&previous_four) {
                 return i + 1;
             }
