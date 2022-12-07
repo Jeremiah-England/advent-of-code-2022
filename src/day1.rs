@@ -9,7 +9,12 @@ fn read_integer_block() -> Vec<u32> {
         if input.trim().is_empty() {
             break;
         }
-        vec.push(input.trim().parse().unwrap_or_else(|_error| panic!("Not an integer '{}'.", input.as_str())));
+        vec.push(
+            input
+                .trim()
+                .parse()
+                .unwrap_or_else(|_error| panic!("Not an integer '{}'.", input.as_str())),
+        );
     }
     vec
 }
@@ -26,5 +31,8 @@ pub fn solve() {
         }
     }
     calarie_sums.sort();
-    println!("{}", calarie_sums.pop().unwrap() + calarie_sums.pop().unwrap() + calarie_sums.pop().unwrap())
+    println!(
+        "{}",
+        calarie_sums.pop().unwrap() + calarie_sums.pop().unwrap() + calarie_sums.pop().unwrap()
+    )
 }

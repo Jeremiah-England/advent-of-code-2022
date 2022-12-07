@@ -1,6 +1,5 @@
 use std::io;
 
-
 enum Shape {
     Rock,
     Paper,
@@ -12,7 +11,7 @@ fn char_to_shape(character: &str) -> Shape {
         "A" => Shape::Rock,
         "B" => Shape::Paper,
         "C" => Shape::Scissors,
-        _ => panic!("Invalid shape character {character}.")
+        _ => panic!("Invalid shape character {character}."),
     }
 }
 
@@ -23,7 +22,7 @@ fn char_to_win_status(character: &str) -> WinStatus {
         "X" => WinStatus::Lose,
         "Y" => WinStatus::Draw,
         "Z" => WinStatus::Win,
-        _ => panic!("Invalid win status character {character}.")
+        _ => panic!("Invalid win status character {character}."),
     }
 }
 
@@ -39,10 +38,10 @@ fn shape_score(shape: Shape) -> u8 {
 enum WinStatus {
     Win,
     Lose,
-    Draw
+    Draw,
 }
 
-fn shapes_to_win_statuses(shapes: &(Shape, Shape))  -> (WinStatus, WinStatus) {
+fn shapes_to_win_statuses(shapes: &(Shape, Shape)) -> (WinStatus, WinStatus) {
     match shapes {
         (Shape::Rock, Shape::Rock) => (WinStatus::Draw, WinStatus::Draw),
         (Shape::Rock, Shape::Paper) => (WinStatus::Lose, WinStatus::Win),
@@ -56,7 +55,7 @@ fn shapes_to_win_statuses(shapes: &(Shape, Shape))  -> (WinStatus, WinStatus) {
     }
 }
 
-fn shape_win_to_shape(shape: &Shape, win: WinStatus)  -> Shape {
+fn shape_win_to_shape(shape: &Shape, win: WinStatus) -> Shape {
     // Given you know the other shape and you want the `win` WinStatus,
     // what shape should you choose?
     match (shape, win) {
@@ -78,13 +77,15 @@ fn win_status_to_score(win_status: WinStatus) -> u8 {
         WinStatus::Lose => 0,
         WinStatus::Draw => 3,
         WinStatus::Win => 6,
-    } 
+    }
 }
-
 
 fn score_round(shapes: (Shape, Shape)) -> (u8, u8) {
     let win_statuses: (WinStatus, WinStatus) = shapes_to_win_statuses(&shapes);
-    return (shape_score(shapes.0) + win_status_to_score(win_statuses.0), shape_score(shapes.1) + win_status_to_score(win_statuses.1));
+    return (
+        shape_score(shapes.0) + win_status_to_score(win_statuses.0),
+        shape_score(shapes.1) + win_status_to_score(win_statuses.1),
+    );
 }
 
 pub fn solve() {
@@ -95,14 +96,15 @@ pub fn solve() {
         match io::stdin().read_line(&mut line) {
             Ok(bytes_read) => {
                 if bytes_read == 0 {
-                    break
+                    break;
                 }
                 let mut plays: Vec<&str> = line.trim().split(' ').collect();
                 let desired_win_status = plays.pop().expect("Empty!");
                 let their_play = plays.pop().expect("Only had one!");
                 assert!(plays.is_empty());
                 let their_shape = char_to_shape(their_play);
-                let your_shape = shape_win_to_shape(&their_shape, char_to_win_status(desired_win_status));
+                let your_shape =
+                    shape_win_to_shape(&their_shape, char_to_win_status(desired_win_status));
                 let scores = score_round((their_shape, your_shape));
                 // let their_score = scores.0;
                 // let your_score = scores.1;
@@ -111,8 +113,8 @@ pub fn solve() {
             }
             Err(error) => {
                 println!("error: {error}");
-                break
-            },
+                break;
+            }
         }
     }
     println!("{your_total}")

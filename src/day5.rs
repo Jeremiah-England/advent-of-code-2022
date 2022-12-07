@@ -17,7 +17,7 @@ fn read_till_empty_line() -> Vec<String> {
 //
 // Example Stacks:
 //
-//     [P]                 [C] [C]    
+//     [P]                 [C] [C]
 //     [W]         [B]     [G] [V] [V]
 //     [V]         [T] [Z] [J] [T] [S]
 //     [D] [L]     [Q] [F] [Z] [W] [R]
@@ -25,10 +25,16 @@ fn read_till_empty_line() -> Vec<String> {
 // [F] [M] [Z] [H] [G] [W] [L] [R] [H]
 // [R] [H] [M] [C] [P] [C] [V] [N] [W]
 // [W] [T] [P] [J] [C] [G] [W] [P] [J]
-//  1   2   3   4   5   6   7   8   9 
+//  1   2   3   4   5   6   7   8   9
 fn parse_stacks(mut lines: Vec<String>) -> HashMap<u8, Vec<char>> {
     lines.reverse();
-    let stack_numbers: Vec<u8> = lines.get(0).unwrap().trim().split("   ").map(|x| x.trim().parse().unwrap()).collect();
+    let stack_numbers: Vec<u8> = lines
+        .get(0)
+        .unwrap()
+        .trim()
+        .split("   ")
+        .map(|x| x.trim().parse().unwrap())
+        .collect();
     let mut stacks: HashMap<u8, Vec<char>> = HashMap::new();
     for stack_number in &stack_numbers {
         stacks.insert(*stack_number, Vec::new());
@@ -45,7 +51,7 @@ fn parse_stacks(mut lines: Vec<String>) -> HashMap<u8, Vec<char>> {
             }
         }
     }
-    return stacks
+    return stacks;
 }
 
 fn move_stack_items(amount: &u8, from: &u8, to: &u8, stacks: &mut HashMap<u8, Vec<char>>) {
